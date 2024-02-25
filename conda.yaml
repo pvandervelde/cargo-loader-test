@@ -1,3 +1,6 @@
 name: cargo_loader_test
 dependencies:
   - python=3.8
+  - pytest
+  - pyyaml
+  - pydantic
