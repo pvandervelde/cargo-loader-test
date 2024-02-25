@@ -5,9 +5,10 @@ cargo. The application allows you to specify the cargo items you want to load an
 the number of trolley loads required to move the cargo.
 
 This is essentially a [bin packing problem](https://en.wikipedia.org/wiki/Bin_packing_problem). The
-application has implemented a few simple algorithms to solve the problem. The first algorithm is a
-simple greedy algorithm that tries to fit the cargo items into the trolley in the order they are
-provided. The second algorithm is a [first-fit-decreasing](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing)
+application has implemented a few simple algorithms to solve the problem. The first algorithm is the
+[first-fit](https://en.wikipedia.org/wiki/First-fit_bin_packing) algorithm that tries to fit the
+cargo items into the trolley in the order they are provided. The second algorithm is a
+[first-fit-decreasing](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing)
 algorithm that sorts the cargo items by mass and then tries to fit them into the trolley in that
 order.
 
