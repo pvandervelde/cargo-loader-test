@@ -39,7 +39,7 @@ def read_arguments() -> Mapping[str, any]:
     #
 
     parser = argparse.ArgumentParser(
-        description="Simulate a 4 wheel steering robot in 2D",
+        description="Calculate the number of trolleys required to load a list of cargo items.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument(
