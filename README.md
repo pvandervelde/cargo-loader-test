@@ -1,7 +1,15 @@
 # cargo-loader-test
 
 A small application for calculating the number of trolley loads required to move a given amount of
-cargo.
+cargo. The application allows you to specify the cargo items you want to load and then calculates
+the number of trolley loads required to move the cargo.
+
+This is essentially a [bin packing problem](https://en.wikipedia.org/wiki/Bin_packing_problem). The
+application has implemented a few simple algorithms to solve the problem. The first algorithm is a
+simple greedy algorithm that tries to fit the cargo items into the trolley in the order they are
+provided. The second algorithm is a [first-fit-decreasing](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing)
+algorithm that sorts the cargo items by mass and then tries to fit them into the trolley in that
+order.
 
 ## Requirements
 
@@ -33,7 +41,7 @@ conda activate cargo-loader-test
 
 You can run the application in two different modes. In the first mode you specify the cargo items
 you want to load by using the `--cargo` argument. You can provide this argument as many times as you
-want. The `cargo` takes 5 arguments as a space separated string:
+want. The `cargo` takes 5 arguments as a comma separated string:
 
 * The cargo id
 * The mass of the cargo
@@ -45,9 +53,15 @@ want. The `cargo` takes 5 arguments as a space separated string:
 
 conda activate cargo-loader-test
 
-python main.py --cargo 10223 193.0 0.2 1.2 2.3 --cargo 10224 9.2 0 0 0
+cd <path-to-repo>
+
+python main.py --cargo 10223,193.0,0.2,1.2,2.3 --cargo 10224,9.2,0,0,0
 
 ```
+
+Note that the mass of a cargo item is in kg and should be between 0 and 200, zero exclusive and 200
+inclusive.  And the dimensions are in meters and should be larger than 0. The encompassing volume
+should be no larger than 2.0 m^3.
 
 In the second mode you can specify a YAML file containing the cargo items you want to load. The file
 should contain a list of cargo items. For example:
@@ -58,15 +72,36 @@ should contain a list of cargo items. For example:
     volume: [0.2, 1.2, 2.3]
 10224:
    mass: 9.2
-   volume: [0, 0, 0]
+   volume: [0.1, 0.1, 0.1]
 ```
 
 ```bash
 
 conda activate cargo-loader-test
 
+cd <path-to-repo>
+
 python main.py --file cargo.yaml
 
 ```
 
+If you want to see the help for the arguments you can use the following command:
+
+```bash
+
+python main.py --help
+
+
+```
+
 ## Testing
+
+There are a number of [pytest](https://docs.pytest.org/en/stable/) tests that can be run to test the
+functionality of the application. You can run the tests with the following command:
+
+```bash
+cd <path-to-repo>
+
+pytest
+
+```
