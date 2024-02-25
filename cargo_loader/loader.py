@@ -4,9 +4,6 @@ from typing import List
 from cargo_loader.cargo import Cargo
 from cargo_loader.trolley import TROLLEY_MAXIMUM_CARGO_WEIGHT_IN_KG
 
-# Provides different loader algorithms to load cargo items into a vehicle.
-
-
 class CargoLoader(ABC):
     #
     # Define the loader as an abstract class so that we can define different loader algorithms.
