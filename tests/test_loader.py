@@ -1,5 +1,4 @@
 import os
-import pytest
 
 from cargo_loader.cargo import Cargo
 from cargo_loader.loader import FirstFitDecreasingLoader, FirstFitLoader

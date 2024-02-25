@@ -1,20 +1,20 @@
 import argparse
-from os import makedirs, path
-from pathlib import Path
 
-from typing import Callable, List, Mapping, NamedTuple, Tuple
+from typing import List, Mapping
 
 from cargo_loader.cargo import Cargo
 from cargo_loader.loader import CargoLoader, FirstFitDecreasingLoader, FirstFitLoader
 
+# Command line argument names
 ARG_FILE_LONG = "file"
 ARG_CARGO_LONG = "cargo"
 ARG_ALGORITHM_LONG = "algorithm"
 
 def parse_cargo_items(arg_dict: Mapping[str, object]) -> List[Cargo]:
+
     cargo_items: List[Cargo] = []
     if ARG_CARGO_LONG in arg_dict and arg_dict[ARG_CARGO_LONG] is not None:
-        for i, item in enumerate(arg_dict[ARG_CARGO_LONG]):
+        for item in arg_dict[ARG_CARGO_LONG]:
             cargo = Cargo.from_string(item)
             cargo_items.append(cargo)
 
@@ -25,13 +25,17 @@ def parse_cargo_items(arg_dict: Mapping[str, object]) -> List[Cargo]:
 
 def read_arguments() -> Mapping[str, any]:
     # Define the command line arguments so that we can parse them
-    # There are two possible arguments:
+    # There are three possible arguments:
     #
+    #  - -a, --algorithm: The name of the algorithm that should be used for the to sort the cargo items
+    #                     into trollys. Current options are: 'first_fit', 'first_fit_decreasing'
     #  - -f, --file: The file path for the input file which contains the list of cargo items. It
     #                is expected that the file contains all the cargo items specified in YAML format.
     #                For an example see the example_cargo_small.yaml file in the samples directory.
     #  - -c, --cargo: The information of a cargo item given as a string. The format is 'name weight length width height'.
     #                 This argument can be specified multiple times.
+    #
+    # The --file and --cargo arguments are mutually exclusive, but at least one of them is required.
     #
 
     parser = argparse.ArgumentParser(

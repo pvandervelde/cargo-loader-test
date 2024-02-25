@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple
+from typing import List
 
 from pathlib import Path
 import yaml
@@ -9,6 +9,7 @@ class Cargo(object):
     # Stores information about a single cargo item. The cargo item has a name, a weight in kg, and dimensions in meters.
     #
 
+    # Define the limits for the cargo items
     CARGO_MAX_WEIGHT_IN_KG = 200
     CARGO_MAX_VOLUME_IN_M3 = 2.0
 
