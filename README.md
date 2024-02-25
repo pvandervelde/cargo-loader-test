@@ -20,8 +20,8 @@ order.
 
 ## Create the environment
 
-To create the environment in which this code can be run you can use conda and provide it with
-the `conda.yaml` file.
+To create the environment in which this code can be run you can use [conda](https://docs.anaconda.com/free/miniconda/index.html)
+and provide it with the `conda.yaml` file.
 
 ```bash
 
@@ -60,7 +60,7 @@ python main.py --cargo 10223,193.0,0.2,1.2,2.3 --cargo 10224,9.2,0,0,0
 ```
 
 Note that the mass of a cargo item is in kg and should be between 0 and 200, zero exclusive and 200
-inclusive.  And the dimensions are in meters and should be larger than 0. The encompassing volume
+inclusive. And the dimensions are in meters and should be larger than 0. The encompassing volume
 should be no larger than 2.0 m^3.
 
 In the second mode you can specify a YAML file containing the cargo items you want to load. The file
@@ -86,8 +86,9 @@ python main.py --file cargo.yaml
 ```
 
 For both modes you can specify the `--algorithm` argument to specify the algorithm you want to use to
-load the cargo. The options are `first_fit` and `first_fit_decreasing`. If you don't specify the
-algorithm the application will use the `first_fit` algorithm by default.
+load the cargo. The options are [`first_fit`](https://en.wikipedia.org/wiki/First-fit_bin_packing)
+and [`first_fit_decreasing`](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing). If you
+don't specify the algorithm the application will use the `first_fit` algorithm by default.
 
 ```bash
 
@@ -110,8 +111,9 @@ python main.py --help
 
 ## Testing
 
-There are a number of [pytest](https://docs.pytest.org/en/stable/) tests that can be run to test the
-functionality of the application. You can run the tests with the following command:
+There are a number of [pytest](https://docs.pytest.org/en/stable/) tests in the `tests` directory
+that can be run to test the functionality of the application. You can run the tests with the
+following command:
 
 ```bash
 cd <path-to-repo>
