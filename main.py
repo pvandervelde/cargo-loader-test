@@ -5,10 +5,11 @@ from pathlib import Path
 from typing import Callable, List, Mapping, NamedTuple, Tuple
 
 from cargo_loader.cargo import Cargo
-from cargo_loader.loader import CargoLoader, FirstFitLoader
+from cargo_loader.loader import CargoLoader, FirstFitDecreasingLoader, FirstFitLoader
 
 ARG_FILE_LONG = "file"
 ARG_CARGO_LONG = "cargo"
+ARG_ALGORITHM_LONG = "algorithm"
 
 def parse_cargo_items(arg_dict: Mapping[str, object]) -> List[Cargo]:
     cargo_items: List[Cargo] = []
@@ -37,6 +38,15 @@ def read_arguments() -> Mapping[str, any]:
         description="Simulate a 4 wheel steering robot in 2D",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+    parser.add_argument(
+        "-a",
+        f"--{ARG_ALGORITHM_LONG}",
+        action="store",
+        choices=['first_fit', 'first_fit_decreasing',],
+        default='first_fit',
+        required=False,
+        help="The name of the algorithm that should be used for the to sort the cargo items into trollys. Current options are: 'first_fit', 'first_fit_decreasing'")
+
     group = parser.add_mutually_exclusive_group(required=True)
 
     group.add_argument(
@@ -61,8 +71,12 @@ def read_arguments() -> Mapping[str, any]:
     return vars(args)
 
 def select_loader(arg_dict: Mapping[str, object]) -> CargoLoader:
-    # Select the loader algorithm to use
-    # For now we only have the FirstFitLoader but we can add more loaders in the future.
+    if ARG_ALGORITHM_LONG in arg_dict and arg_dict[ARG_ALGORITHM_LONG] is not None:
+        if arg_dict[ARG_ALGORITHM_LONG] == 'first_fit':
+            return FirstFitLoader()
+        elif arg_dict[ARG_ALGORITHM_LONG] == 'first_fit_decreasing':
+            return FirstFitDecreasingLoader()
+
     return FirstFitLoader()
 
 def main(args=None):
@@ -70,6 +84,8 @@ def main(args=None):
     cargo_items = parse_cargo_items(arg_dict)
 
     loader = select_loader(arg_dict)
+
+    print(f"Loading {len(cargo_items)} items into trolleys using {loader.__class__.__name__} ...")
 
     count = loader.load(cargo_items)
     print(f"Loaded {len(cargo_items)} items into {count} { 'trolley' if count == 1 else 'trolleys'}")
