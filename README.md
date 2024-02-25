@@ -1,7 +1,15 @@
 # cargo-loader-test
 
 A small application for calculating the number of trolley loads required to move a given amount of
-cargo.
+cargo. The application allows you to specify the cargo items you want to load and then calculates
+the number of trolley loads required to move the cargo.
+
+This is essentially a [bin packing problem](https://en.wikipedia.org/wiki/Bin_packing_problem). The
+application has implemented a few simple algorithms to solve the problem. The first algorithm is a
+simple greedy algorithm that tries to fit the cargo items into the trolley in the order they are
+provided. The second algorithm is a [first-fit-decreasing](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing)
+algorithm that sorts the cargo items by mass and then tries to fit them into the trolley in that
+order.
 
 ## Requirements
 
@@ -45,6 +53,8 @@ want. The `cargo` takes 5 arguments as a space separated string:
 
 conda activate cargo-loader-test
 
+cd <path-to-repo>
+
 python main.py --cargo 10223 193.0 0.2 1.2 2.3 --cargo 10224 9.2 0 0 0
 
 ```
@@ -65,8 +75,20 @@ should contain a list of cargo items. For example:
 
 conda activate cargo-loader-test
 
+cd <path-to-repo>
+
 python main.py --file cargo.yaml
 
 ```
 
 ## Testing
+
+There are a number of [pytest](https://docs.pytest.org/en/stable/) tests that can be run to test the
+functionality of the application. You can run the tests with the following command:
+
+```bash
+cd <path-to-repo>
+
+pytest
+
+```
