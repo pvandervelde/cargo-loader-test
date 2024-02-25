@@ -7,7 +7,7 @@ from cargo_loader.trolley import TROLLEY_MAXIMUM_CARGO_WEIGHT_IN_KG
 # Provides different loader algorithms to load cargo items into a vehicle.
 
 
-class Loader(ABC):
+class CargoLoader(ABC):
     #
     # Define the loader as an abstract class so that we can define different loader algorithms.
     #
@@ -28,7 +28,7 @@ class Loader(ABC):
         # Return an invalid number so that it is clear that the method needs to be implemented.
         return -1
 
-class FirstFitLoader(Loader):
+class FirstFitLoader(CargoLoader):
     #
     # A simple loader algorithm that tries to load as many items as possible into a trolley.
     #
