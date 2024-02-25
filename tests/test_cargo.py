@@ -61,10 +61,10 @@ def test_should_throw_exception_when_creating_item_with_too_much_volume():
 
 def test_should_create_string_when_translating_item_to_string():
     cargo = Cargo("Item", 100, 0.5, 1, 2)
-    assert str(cargo) == "Item 100 0.5 1 2"
+    assert str(cargo) == "Item,100,0.5,1,2"
 
 def test_should_create_valid_item_when_reading_from_string():
-    cargo_str = "Item 100 0.5 1 2"
+    cargo_str = "Item,100,0.5,1,2"
     cargo = Cargo.from_string(cargo_str)
     assert cargo.name == "Item"
     assert cargo.weight_in_kg == 100

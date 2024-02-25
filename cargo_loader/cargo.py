@@ -36,14 +36,14 @@ class Cargo(object):
         self.height_in_m = height_in_m
 
     def __str__(self):
-        return f"{self.name} {self.weight_in_kg} {self.length_in_m} {self.width_in_m} {self.height_in_m}"
+        return f"{self.name},{self.weight_in_kg},{self.length_in_m},{self.width_in_m},{self.height_in_m}"
 
     def __repr__(self):
-        return f"{self.name} {self.weight_in_kg} {self.length_in_m} {self.width_in_m} {self.height_in_m}"
+        return f"{self.name},{self.weight_in_kg},{self.length_in_m},{self.width_in_m},{self.height_in_m}"
 
     @staticmethod
     def from_string(cargo_str: str) -> 'Cargo':
-        name, weight, length, width, height = cargo_str.split(" ")
+        name, weight, length, width, height = cargo_str.split(",")
         return Cargo(name, float(weight), float(length), float(width), float(height))
 
     @staticmethod
