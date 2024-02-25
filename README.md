@@ -85,6 +85,20 @@ python main.py --file cargo.yaml
 
 ```
 
+For both modes you can specify the `--algorithm` argument to specify the algorithm you want to use to
+load the cargo. The options are `first_fit` and `first_fit_decreasing`. If you don't specify the
+algorithm the application will use the `first_fit` algorithm by default.
+
+```bash
+
+conda activate cargo-loader-test
+
+cd <path-to-repo>
+
+python main.py --file cargo.yaml --algorithm first_fit_decreasing
+
+```
+
 If you want to see the help for the arguments you can use the following command:
 
 ```bash
