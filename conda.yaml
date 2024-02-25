@@ -1,0 +1,3 @@
+name: cargo_loader_test
+dependencies:
+  - python=3.8
