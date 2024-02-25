@@ -1,6 +1,5 @@
 import os
 import pytest
-from typing import Callable, Mapping, List, Tuple
 
 from cargo_loader.cargo import Cargo
 
@@ -12,9 +11,49 @@ def test_should_create_valid_cargo_item_when_suppling_values():
     assert item.width_in_m == 1
     assert item.height_in_m == 2
 
+def test_should_throw_exception_when_creating_item_with_empty_name():
+    with pytest.raises(ValueError):
+        Cargo("", 100, 0.5, 1, 2)
+
+def test_should_throw_exception_when_creating_item_with_whitespace_name():
+    with pytest.raises(ValueError):
+        Cargo(" ", 100, 0.5, 1, 2)
+
+def test_should_throw_exception_when_creating_item_with_negative_weight():
+    with pytest.raises(ValueError):
+        Cargo("Item", -100, 0.5, 1, 2)
+
+def test_should_throw_exception_when_creating_item_with_zero_weight():
+    with pytest.raises(ValueError):
+        Cargo("Item", 0, 0.5, 1, 2)
+
 def test_should_throw_exception_when_creating_item_with_too_much_weight():
     with pytest.raises(ValueError):
         Cargo("Item", 300, 1, 1, 1)
+
+def test_should_throw_exception_when_creating_item_with_negative_length():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, -0.5, 1, 2)
+
+def test_should_throw_exception_when_creating_item_with_zero_length():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, 0.0, 1, 2)
+
+def test_should_throw_exception_when_creating_item_with_negative_width():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, 0.5, -1, 2)
+
+def test_should_throw_exception_when_creating_item_with_zero_width():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, 0.5, 0.0, 2)
+
+def test_should_throw_exception_when_creating_item_with_negative_height():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, 0.5, 1, -2)
+
+def test_should_throw_exception_when_creating_item_with_zero_height():
+    with pytest.raises(ValueError):
+        Cargo("Item", 100, 0.5, 1, 0.0)
 
 def test_should_throw_exception_when_creating_item_with_too_much_volume():
     with pytest.raises(ValueError):

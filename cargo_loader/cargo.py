@@ -13,8 +13,17 @@ class Cargo(object):
     CARGO_MAX_VOLUME_IN_M3 = 2.0
 
     def __init__(self, name: str, weight_in_kg: float, length_in_m: float, width_in_m: float, height_in_m: float):
+        if name is None or name == "" or name.isspace():
+            raise ValueError("Name of cargo item cannot be empty.")
+
+        if weight_in_kg <= 0:
+            raise ValueError(f"Weight of cargo item {name} must be greater than 0. The specified weight is {weight_in_kg}kg.")
+
         if weight_in_kg > Cargo.CARGO_MAX_WEIGHT_IN_KG:
             raise ValueError(f"Weight of cargo item {name} exceeds the maximum weight of {Cargo.CARGO_MAX_WEIGHT_IN_KG}kg. The specified weight is {weight_in_kg}kg.")
+
+        if length_in_m <= 0 or width_in_m <= 0 or height_in_m <= 0:
+            raise ValueError(f"Dimensions of cargo item {name} must be greater than 0. The specified dimensions are {length_in_m}m x {width_in_m}m x {height_in_m}m.")
 
         cargo_volume_in_m3 = length_in_m * width_in_m * height_in_m
         if cargo_volume_in_m3 > Cargo.CARGO_MAX_VOLUME_IN_M3:
@@ -53,11 +62,10 @@ class Cargo(object):
 
         relative = Path(cargo_file)
         if not relative.exists():
-            raise ValueError(f"The file {cargo_file} does not exist.")
+            raise ValueError(f"The file {cargo_file} does not exist. The expanded path is {relative.absolute()}.")
 
         result: List[Cargo] = []
         with open(relative.absolute()) as f:
-            print("Reading cargo file {} ...".format(f.name))
             data = yaml.load(f, Loader=SafeLoader)
 
             for name, cargo_item_information in data.items():
